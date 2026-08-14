@@ -1,0 +1,16 @@
+{
+  "name": "sentinelcore-zero-trust",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Executable Zero Trust control plane and evidence dashboard",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check dashboard/app.js && node --check dashboard/core.js && python3 scripts/validate_controls.py",
+    "test:unit": "node --test tests/*.test.cjs",
+    "test:api": "node tests/api.check.mjs",
+    "test": "npm run test:unit && npm run test:api"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

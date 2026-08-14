@@ -1,11 +1,19 @@
 # Control Matrix
 
-| Objective | Control | Evidence | Status |
-|---|---|---|---|
-| Strong administrator authentication | Phishing-resistant MFA | Sign-in logs and CA results | Designed |
-| Remove legacy protocols | Block legacy authentication | Policy report and sign-in logs | Designed |
-| Limit standing privilege | Eligible roles with approval | PIM audit logs | Designed |
-| Contain token compromise | Revoke sessions playbook | Audit and sign-in timeline | Designed |
-| Detect identity anomalies | Sentinel KQL analytics | Alert and incident evidence | Implemented as code |
-| Protect unmanaged access | Session and device controls | CA result and device state | Pilot design |
+The complete machine-readable register is `data/security.json`: exactly 30 records, six per Zero Trust pillar. Every record contains a stable ID, owner, evidence expectation, coverage percentage, and one of these explicit reference statuses:
 
+| Status | Meaning in this repository |
+|---|---|
+| `enforced` | The modeled organization expects the control to make an access decision; related policy or configuration evidence is included or named. |
+| `validated` | A controlled simulation reached the expected result and the evidence path is documented. |
+| `partial` | Coverage gaps remain in the model and are visible in the posture calculation. |
+
+These labels describe the portfolio model, not a live tenant. Production evidence must come from authorized tenant exports, approvals, sign-in results, endpoint inventory, monitoring rules, and recovery tests.
+
+| Pillar | Records | Representative evidence |
+|---|---:|---|
+| Identity | 6 | Conditional Access results, registration coverage, PIM audits |
+| Device | 6 | Compliance inventory, encryption, EDR health, patch baseline |
+| Network | 6 | ZTNA inventory, flow denials, private endpoints, retained logs |
+| Application | 6 | Proxy decisions, token policy, supply-chain scans, session logs |
+| Data | 6 | Labels, DLP tests, encryption, access reviews, restore evidence |

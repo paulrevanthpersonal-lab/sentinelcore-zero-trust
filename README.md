@@ -1,18 +1,18 @@
-# SentinelCore Zero Trust Architecture
+# SentinelCore Zero Trust Control Plane
 
-> Identity-first Zero Trust architecture, policy-as-code, detection engineering, and response playbooks for a 50-user SME.
+> Executable identity-first Zero Trust control plane with 30 mapped controls, 30 endpoint records, 12 authorized simulations, policy-as-code, detection engineering, and response playbooks for a fictional 50-user SME.
 
 **[Open the live security cockpit](https://paulrevanthpersonal-lab.github.io/sentinelcore-zero-trust/)**
 
 ![SentinelCore security cockpit](docs/screenshots/security-cockpit.png)
 
-The terminal-style login accepts only the documented demo credentials and is explicitly labeled as simulated authentication.
+The terminal-style reviewer login creates a local bearer session when the Node service is running and falls back to a clearly labeled static review session on GitHub Pages.
 
 ![SentinelCore demo login](docs/screenshots/login-terminal.png)
 
 ## 1. Overview
 
-SentinelCore is an implementation-ready security architecture aligned with NIST SP 800-207. It connects Entra ID Conditional Access, least-privilege RBAC, Defender and Sentinel telemetry, Cloudflare access signals, KQL detections, and identity-response playbooks.
+SentinelCore is an executable reference implementation aligned with NIST SP 800-207. It connects a local posture API and evidence registry with Entra ID Conditional Access artifacts, least-privilege RBAC, Defender and Sentinel telemetry models, KQL detections, and identity-response playbooks.
 
 ## 2. Security objective
 
@@ -20,17 +20,19 @@ The repository demonstrates how a small organization can replace network-based t
 
 ## 3. Scope and status
 
-This is a portfolio reference architecture and control simulation. Policy documents, KQL rules, validation tooling, and response playbooks are implemented as code; no production tenant is modified.
+This is a portfolio reference architecture and authorized control simulation. The dashboard, local authentication API, 30-control register, 30-device inventory, simulation ledger, audit persistence, policy documents, KQL rules, validator, and response playbooks are implemented as code. No production tenant is modified.
 
 ## 4. Security cockpit
 
-The multi-view dashboard covers executive posture, an 8/8 authorized simulation log, five NIST-aligned pillars, and a first-person capstone explanation. The MFA, ZTNA coverage, compliance, Year-1 cost, and ROI figures are documented modeled inputs, not production measurements.
+The multi-view dashboard computes posture from 30 controls across five NIST-aligned pillars, reports 30 modeled endpoints, exposes 12/12 authorized simulation paths, and lets a reviewer persist validation runs through the local API. The organization, telemetry, compliance, cost, and ROI figures are modeled inputs—not production measurements.
 
 ![SentinelCore mobile view](docs/screenshots/security-mobile.png)
 
 ## 5. Architecture
 
 Review [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the policy, enforcement, telemetry, detection, and response flow.
+
+Run the executable control plane with `npm start`, then open `http://localhost:4230/dashboard/`. The static GitHub Pages review remains available without persistence.
 
 ## 6. Zero Trust principles
 
@@ -60,17 +62,19 @@ The [session-revocation playbook](playbooks/session-revocation.md) covers valida
 
 Review [docs/THREAT_MODEL.md](docs/THREAT_MODEL.md) for assets, threats, trust boundaries, and required security properties.
 
-## 12. Control matrix
+## 12. Control and device evidence
 
-The [control matrix](docs/CONTROL_MATRIX.md) maps objectives to controls, evidence, and honest implementation status.
+`data/security.json` contains 30 controls, 30 devices, and 12 simulations. The [control matrix](docs/CONTROL_MATRIX.md) explains the implementation-status language and evidence standard; the [API reference](docs/API.md) documents filters and audit persistence.
 
 ## 13. Automated validation
 
 ```bash
 python3 scripts/validate_controls.py
+npm run check
+npm test
 ```
 
-The validator checks unique policy IDs, allowed states, emergency exclusions, approved eligible privilege, and substantive detection coverage.
+Validation checks unique policy IDs, allowed states, emergency exclusions, approved eligible privilege, substantive detection coverage, exact data depth, local authentication, posture computation, filters, and simulation audit persistence.
 
 ## 14. Automated screenshots
 
@@ -82,7 +86,7 @@ Headless Chrome regenerates desktop and mobile images in `docs/screenshots/`.
 
 ## 15. Continuous integration
 
-GitHub Actions validates JSON, control relationships, KQL coverage, Python execution, and Bash syntax on each push and pull request.
+GitHub Actions validates JSON, control relationships, KQL coverage, JavaScript syntax, API behavior, Python execution, and Bash syntax on each push and pull request.
 
 ## 16. Interview discussion points
 
@@ -95,9 +99,9 @@ GitHub Actions validates JSON, control relationships, KQL coverage, Python execu
 ## 17. Roadmap
 
 - Add Terraform modules for a disposable Azure security lab
-- Add Defender for Cloud recommendations and device-compliance simulation
+- Add Microsoft Graph import adapters for authorized tenant exports
 - Map controls to CIS Microsoft 365 and Azure benchmarks
-- Add detection test fixtures and expected alert outcomes
+- Add signed detection fixtures and expected alert outcomes
 - Add a tabletop exercise with a complete incident timeline
 
 ## 18. License

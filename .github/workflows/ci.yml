@@ -15,6 +15,10 @@ jobs:
         with:
           node-version: "22"
       - run: node --test tests/*.test.cjs
+      - run: node tests/api.check.mjs
+      - run: node --check dashboard/app.js
+      - run: node --check server.js
+      - run: node -e "const d=require('./data/security.json'); if(d.controls.length!==30||d.devices.length!==30||d.simulations.length!==12) process.exit(1)"
       - run: python -m json.tool policies/conditional-access.json >/dev/null
       - run: python -m json.tool policies/rbac-matrix.json >/dev/null
       - run: bash -n scripts/capture_screenshots.sh
