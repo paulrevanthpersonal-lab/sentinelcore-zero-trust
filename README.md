@@ -2,6 +2,8 @@
 
 > Identity-first Zero Trust architecture, policy-as-code, detection engineering, and response playbooks for a 50-user SME.
 
+**[Open the live security cockpit](https://paulrevanthpersonal-lab.github.io/sentinelcore-zero-trust/)**
+
 ![SentinelCore security cockpit](docs/screenshots/security-cockpit.png)
 
 The terminal-style login accepts only the documented demo credentials and is explicitly labeled as simulated authentication.
