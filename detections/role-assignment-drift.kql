@@ -1,0 +1,7 @@
+AuditLogs
+| where OperationName has_any ("Add member to role", "Add eligible member to role")
+| extend Actor = tostring(InitiatedBy.user.userPrincipalName)
+| mv-expand TargetResources
+| extend Target = tostring(TargetResources.displayName)
+| project TimeGenerated, Actor, OperationName, Target, CorrelationId
+

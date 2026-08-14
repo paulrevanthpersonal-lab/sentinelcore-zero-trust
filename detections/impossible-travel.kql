@@ -1,0 +1,8 @@
+let observation_window = 90m;
+SigninLogs
+| where ResultType == 0
+| extend Country = tostring(LocationDetails.countryOrRegion)
+| summarize Countries = make_set(Country), IPs = make_set(IPAddress), Apps = make_set(AppDisplayName) by UserPrincipalName, bin(TimeGenerated, observation_window)
+| where array_length(Countries) > 1
+| project TimeGenerated, UserPrincipalName, Countries, IPs, Apps
+

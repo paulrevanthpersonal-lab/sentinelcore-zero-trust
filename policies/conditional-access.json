@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "environment": "portfolio-simulation",
+  "policies": [
+    {"id":"CA-001","name":"Require MFA for administrators","state":"enabled","users":["directory-roles"],"conditions":{"client_apps":["all"],"risk":["all"]},"grant":["mfa"],"exclusions":["break-glass-01","break-glass-02"]},
+    {"id":"CA-002","name":"Block legacy authentication","state":"enabled","users":["all"],"conditions":{"client_apps":["exchangeActiveSync","other"]},"grant":["block"],"exclusions":["break-glass-01","break-glass-02"]},
+    {"id":"CA-003","name":"Risk-based sign-in challenge","state":"enabled","users":["all"],"conditions":{"risk":["medium","high"]},"grant":["mfa"],"exclusions":["break-glass-01","break-glass-02"]},
+    {"id":"CA-004","name":"Require compliant device for sensitive apps","state":"report-only","users":["finance","operations"],"conditions":{"apps":["finance-suite","operations-console"]},"grant":["compliant-device"],"exclusions":["break-glass-01","break-glass-02"]}
+  ]
+}
+

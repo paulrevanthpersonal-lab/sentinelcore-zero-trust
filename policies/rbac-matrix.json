@@ -1,0 +1,10 @@
+{
+  "principle": "least privilege with time-bound elevation",
+  "roles": [
+    {"role":"Global Reader","assignment":"security-leads","scope":"tenant","mode":"eligible","approval":true},
+    {"role":"Security Reader","assignment":"soc-analysts","scope":"tenant","mode":"active","approval":false},
+    {"role":"Conditional Access Administrator","assignment":"identity-leads","scope":"tenant","mode":"eligible","approval":true},
+    {"role":"User Administrator","assignment":"service-desk-tier2","scope":"administrative-unit","mode":"eligible","approval":true}
+  ]
+}
+

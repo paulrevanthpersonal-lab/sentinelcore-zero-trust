@@ -1,0 +1,6 @@
+SigninLogs
+| where ResultType == 0
+| summarize IPCount=dcount(IPAddress), UserAgentCount=dcount(UserAgent), DeviceCount=dcount(tostring(DeviceDetail.deviceId)), IPs=make_set(IPAddress) by UserPrincipalName, bin(TimeGenerated, 30m)
+| where IPCount > 3 and UserAgentCount > 2
+| project TimeGenerated, UserPrincipalName, IPCount, UserAgentCount, DeviceCount, IPs
+
