@@ -10,6 +10,17 @@ const base = `http://127.0.0.1:${server.address().port}`;
 try {
   const health = await fetch(`${base}/api/health`).then((response) => response.json());
   assert.equal(health.status, "ok");
+  for (const [method, path, body] of [
+    ["GET", "/api/posture?review=1"],
+    ["POST", "/api/simulations?review=1", JSON.stringify({ simulationId: "SIM-01" })],
+  ]) {
+    const response = await fetch(`${base}${path}`, {
+      method,
+      headers: body ? { "content-type": "application/json" } : undefined,
+      body,
+    });
+    assert.equal(response.status, 401, `${method} ${path} must require a bearer session`);
+  }
   const loginResponse = await fetch(`${base}/api/auth/login`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email: "paul.madasu@nimbus.tech", password: "SentinelCore2026!" }) });
   assert.equal(loginResponse.status, 200);
   const { token } = await loginResponse.json();

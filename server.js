@@ -61,7 +61,7 @@ const server = http.createServer(async (req, res) => {
       const token = randomUUID(); sessions.set(token, { email: input.email, issuedAt: new Date().toISOString() });
       return send(res, 200, { token, user: { name: "Paul Madasu", role: "Security Reviewer" } });
     }
-    if (url.pathname.startsWith("/api/") && !authorized(req) && url.searchParams.get("review") !== "1") return send(res, 401, { error: "Authentication required" });
+    if (url.pathname.startsWith("/api/") && !authorized(req)) return send(res, 401, { error: "Authentication required" });
     const data = await sourceData();
     const runtime = await runtimeData();
     if (url.pathname === "/api/posture") return send(res, 200, posture(data, runtime));
@@ -109,4 +109,3 @@ const server = http.createServer(async (req, res) => {
 
 if (require.main === module) server.listen(PORT, "127.0.0.1", () => console.log(`SentinelCore listening on http://127.0.0.1:${PORT}`));
 module.exports = { server, posture };
-

@@ -12,4 +12,9 @@
 - `GET /api/simulations` returns the 12 authorized scenarios and recorded local audit events.
 - `POST /api/simulations` validates a simulation ID and persists an operator audit event.
 
+`/api/health` and `/api/auth/login` are public. Every other local `/api/` route,
+including read-only posture routes and simulation writes, requires a valid bearer
+token. URL query parameters never bypass this check. GitHub Pages is a separate
+static review surface: it reads immutable versioned JSON and cannot persist events.
+
 Reviewer tokens are process-local and audit events are written to ignored `data/runtime.json`. This is not a replacement for enterprise identity, a SIEM, or immutable production audit storage.
